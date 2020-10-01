@@ -15,8 +15,11 @@ def check_order_send(arg):
     if arg["status"] == "ERROR":
         print("Error al ingresar la orden")
 
+
+print(len(sys.argv))
+
 #Check de los argumentos
-if len(sys.argv)!=6 and sys.argv[2]=="-u" and sys.argv[4]=="-p" :
+if len(sys.argv)!=8 or sys.argv[2]!="-u" or sys.argv[4]!="-p" or sys.argv[6]!="a":
     print("Argumentos invalidos!")
     sys.exit()
 
