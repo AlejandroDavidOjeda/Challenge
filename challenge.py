@@ -1,6 +1,5 @@
 import pyRofex
 import sys
-#Para enviar ofertas debo tener la cuenta, de donde la saco?
 
 ############################ Funciones #######################
 def logout():
@@ -15,11 +14,12 @@ def check_order_send(arg):
     if arg["status"] == "ERROR":
         print("Error al ingresar la orden")
 
+#############################################################
 
-print(len(sys.argv))
+
 
 #Check de los argumentos
-if len(sys.argv)!=8 or sys.argv[2]!="-u" or sys.argv[4]!="-p" or sys.argv[6]!="a":
+if len(sys.argv)!=8 or sys.argv[2]!="-u" or sys.argv[4]!="-p" or sys.argv[6]!="-a":
     print("Argumentos invalidos!")
     sys.exit()
 
@@ -31,7 +31,7 @@ try:
     pyRofex.initialize(
         user=sys.argv[3],
         password=sys.argv[5],
-        account="REM5051",
+        account=sys.argv[7],
         environment = pyRofex.Environment.REMARKET)
 except:
     print("Usuario y/o contraseña incorrectos")
@@ -73,12 +73,14 @@ try:
     print("Precio del BID: ${0}".format(bi))
     print("Ingresando orden a ${0}".format(bi-0.01))
     chk = pyRofex.send_order(instrumento, side=pyRofex.Side.BUY, size=1, price=bi-0.01, order_type=pyRofex.OrderType.LIMIT)
+#Chequeo que la orden se haya realizado con exito
     check_order_send(chk)
 except:
 #Si no existen entradas, creo una a $75,25
     print("No hay BIDs activos")
     print("Ingresando orden a $75,25")
     chk = pyRofex.send_order(instrumento, side=pyRofex.Side.BUY, size=1, price=75.25, order_type=pyRofex.OrderType.LIMIT)
+#Chequeo que la orden se haya realizado con exito
     check_order_send(chk)
 
 logout()
